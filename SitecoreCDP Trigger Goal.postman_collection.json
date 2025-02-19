@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "bc2b62df-5ef7-4d32-8032-67464e37cde3",
+		"name": "SitecoreCDP Trigger Goal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28137316",
+		"_collection_link": "https://rrh111.postman.co/workspace/My-Workspace~eadf72bc-ae34-42d4-8830-86949a0b47bc/collection/28137316-bc2b62df-5ef7-4d32-8032-67464e37cde3?action=share&source=collection_link&creator=28137316"
+	},
+	"item": [
+		{
+			"name": "Get Browser Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json(); \r",
+							"pm.environment.set(\"browser_id\", response.ref);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/browser/create.json?client_key={{client_key}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"browser",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VIEW 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page1}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page1}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VIEW 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page2}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page2}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VIEW 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page3}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page3}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger Experience",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientKey\": \"{{client_key}}\",\r\n    \"channel\": \"{{channel}}\",\r\n    \"language\": \"{{language}}\",\r\n    \"currencyCode\": \"{{currency}}\",\r\n    \"pointOfSale\": \"{{pointOfSale}}\",\r\n    \"browserId\": \"{{browser_id}}\",\r\n    \"friendlyId\": \"{{experience_friendly_id}}\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/v2/callFlows"
+			},
+			"response": []
+		},
+		{
+			"name": "Custom Event",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"{{custom_event_name}}\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{custom_event_page}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"{{custom_event_name}}\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{custom_event_page}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IDENTITY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"IDENTITY\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{identity_page}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\",\"email\":\"{{identity_id}}\",\"identifiers\": [{\"id\": \"{{identity_id}}\",\"provider\": \"{{identity_provider}}\"}]}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"IDENTITY\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{identity_page}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\",\"email\":\"{{identity_id}}\",\"identifiers\": [{\"id\": \"{{identity_id}}\",\"provider\": \"{{identity_provider}}\"}]}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VIEW 4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page4}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page4}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VIEW 5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page5}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"VIEW\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"{{page5}}\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FORCE CLOSE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1.2/event/create.json?client_key={{client_key}}&message={\"channel\":\"{{channel}}\",\"type\":\"FORCE_CLOSE\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"/\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{client_key}}"
+						},
+						{
+							"key": "message",
+							"value": "{\"channel\":\"{{channel}}\",\"type\":\"FORCE_CLOSE\",\"language\":\"{{language}}\",\"currency\":\"{{currency}}\",\"page\":\"/\",\"pos\":\"{{pointOfSale}}\",\"browser_id\":\"{{browser_id}}\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
